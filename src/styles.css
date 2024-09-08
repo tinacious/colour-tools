@@ -7,5 +7,10 @@ body {
 }
 
 .container {
-  @apply max-w-screen-lg mx-auto px-4;
+  @apply max-w-screen-lg mx-auto px-4 box-border;
+}
+
+
+.form-label {
+  @apply block font-semibold text-gray-500 dark:text-gray-300 py-1;
 }

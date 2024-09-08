@@ -3,26 +3,77 @@
 </div>
 
 <div class="container">
-  <div class="grid md:grid-cols-2 max-w-screen-lg mx-auto">
-    <div>
-      <div class="">ONE</div>
-      <p>shades-generator works!</p>
-      <div class="">01</div>
-      <div class="">02</div>
-      <div>03</div>
-      <div>04</div>
-      <div>05</div>
+  <div class="grid md:grid-cols-3 max-w-screen-lg mx-auto">
+
+    <!-- Form column -->
+    <div class="md:col-span-1">
+      <!-- Colour name -->
+
+      <div class="">
+        <label class="form-label" for="color-name">
+          Colour name prefix
+        </label>
+        <input
+          id="color-name"
+          type="text"
+          [value]="colorName"
+          (change)="setColorName($event)"
+          class="bg-gray-100 dark:bg-gray-700 px-2 py-1"
+        />
+      </div>
+
+      <!-- Colour input -->
+      <div class="pb-4">
+        <label class="form-label" for="colour-picker">
+          Colour
+        </label>
+        <div class="flex">
+          <input
+            id="colour-picker"
+            class="w-6 mr-1 rounded-sm cursor-pointer"
+            [(colorPicker)]="color"
+            [style.background]="color"
+            (colorPickerChange)="recalculateShades()"
+            [cpOKButton]="true"
+          />
+          <label for="colour-picker" class="cursor-pointer font-bold">
+            {{color}}
+          </label>
+        </div>
+      </div>
+
+
+      <!-- Number of shades input -->
+
+      <div class="">
+        <label class="form-label" for="shades-count">
+          Number of shades
+        </label>
+        <input
+          id="shades-count"
+          type="number"
+          [value]="count"
+          (change)="setCount($event)"
+          class="bg-gray-100 dark:bg-gray-700 px-2 py-1"
+        />
+      </div>
     </div>
 
-    <div>
-      <div class="">TWO</div>
-      <div class="">01</div>
-      <div class="">02</div>
-      <div>03</div>
-      <div>04</div>
-      <div>05</div>
+
+    <!-- Results column -->
+
+    <div class="md:col-span-2">
+
+      <!-- Swatches -->
+      <div class="">
+        <div *ngFor="let swatch of swatches" class="flex items-center py-2 px-3" [ngStyle]="{ 'background': swatch.hex }">
+          <span class="bg-black text-white py-1 px-2 rounded-sm">
+            {{swatch.name}}
+          </span>
+        </div>
+      </div>
+
+      <!-- TODO: Add code snippets -->
     </div>
   </div>
 </div>
-
-<!-- <h2 class="max-w-screen-lg mx-auto text-xl font-medium mt-2 mb-4">Shades Generator</h2> -->
