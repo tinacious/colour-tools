@@ -7,6 +7,25 @@
     </p>
   </div>
 
+  <div class="mb-4 md:mb-6">
+    <h2 class="font-medium text-lg text-gray-500 dark:text-gray-300 pb-2">Copy Mode</h2>
+    <label class="block mb-1">
+      <input type="radio" value="hex" name="copy_mode" (ngModelChange)="changeMode($event)" [(ngModel)]="copyMode" /> <span class="ml-2 py-1">Hex</span>
+    </label>
+
+    <label class="block mb-1">
+      <input type="radio" value="hsl" name="copy_mode" (ngModelChange)="changeMode($event)" [(ngModel)]="copyMode" /> <span class="ml-2 py-1">HSL</span>
+    </label>
+
+    <label class="block mb-1">
+      <input type="radio" value="rgb" name="copy_mode" (ngModelChange)="changeMode($event)" [(ngModel)]="copyMode" /> <span class="ml-2 py-1">RGB</span>
+    </label>
+
+    <label class="block mb-1">
+      <input type="radio" value="android_compose" name="copy_mode" (ngModelChange)="changeMode($event)" [(ngModel)]="copyMode" /> <span class="ml-2 py-1">Android (Jetpack Compose)</span>
+    </label>
+  </div>
+
 
   <!-- Colour Palettes -->
 
@@ -33,14 +52,18 @@
         </div>
       </div>
 
-      <div class="pt-2 flex flex-wrap gap-1">
+      <div class="pt-2 grid grid-cols-4 gap-1">
         <div
           *ngFor="let swatch of palette.colours"
           [ngStyle]="{ 'background': swatch }"
-          class="w-full md:w-[13%] h-[100px] p-3 rounded-sm"
+          class="w-full  h-[100px] p-3 rounded-sm cursor-pointer"
+          (click)="copyColour(swatch)"
         >
           <span class="bg-black text-white py-1 px-2 rounded-sm">
-            {{swatch.hex()}}
+            <span *ngIf="copyMode == 'hex'">{{swatch.hex()}}</span>
+            <span class="text-xs" *ngIf="copyMode == 'hsl'">{{swatch.hsl().string()}}</span>
+            <span *ngIf="copyMode == 'rgb'">{{swatch.rgb().string()}}</span>
+            <span *ngIf="copyMode == 'android_compose'">Color(0xFF{{swatch.hex().replace('#', '')}})</span>
           </span>
         </div>
       </div>
