@@ -5,6 +5,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { IconTrashComponent } from '../icon-trash/icon-trash.component';
 import { ClipboardService } from '../clipboard.service';
 import Color from 'color';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-palettes',
@@ -17,8 +18,10 @@ export class PalettesComponent {
   constructor(
     private colourPaletteService: ColourPaletteService,
     private clipboardService: ClipboardService,
+    private storageService: StorageService,
   ) {
     this.loadPalettes()
+    this.copyMode = this.storageService.getItem('copy-mode') || 'hex'
   }
 
   copyMode: CopyMode = 'hex'
@@ -50,11 +53,9 @@ export class PalettesComponent {
     }
   }
 
-  changeMode(evt: Event) {
-    if (!evt || !evt.target) return
-
-    const mode = (evt.target as HTMLInputElement).value as CopyMode
+  changeMode(mode: CopyMode) {
     this.copyMode = mode
+    this.storageService.setItem('copy-mode', mode)
   }
 
   deletePaletteAtIndex(idx: number) {
@@ -67,7 +68,7 @@ export class PalettesComponent {
       case 'hex':
         return this.clipboardService.copyText(swatch.hex(), () => { })
       case 'hsl':
-        return this.clipboardService.copyText(swatch.hsl().string(), () => { })
+        return this.clipboardService.copyText(swatch.hsl().round().string(), () => { })
       case 'rgb':
         return this.clipboardService.copyText(swatch.rgb().string(), () => { })
       case 'android_compose':

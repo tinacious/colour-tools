@@ -20,7 +20,7 @@ export class StorageService {
   setItem<T>(key: string, value: T) {
     key = key.startsWith(STORAGE_KEY_PREFIX) ? key : STORAGE_KEY_PREFIX + '.' + key
 
-    const serializedValue = typeof value === 'string' ? value : JSON.stringify(value)
+    const serializedValue = JSON.stringify(value)
 
     localStorage.setItem(key, serializedValue)
   }
