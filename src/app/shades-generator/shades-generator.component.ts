@@ -24,7 +24,7 @@ export class ShadesGeneratorComponent {
 
   colorName: string = 'grey'
   color: string = '#1d1d26'
-  count: string = '12'
+  count: string = '9'
   swatches: ColourResult[] = []
 
   setColorName(evt: Event) {
