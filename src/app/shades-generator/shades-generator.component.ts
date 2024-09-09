@@ -27,6 +27,10 @@ export class ShadesGeneratorComponent {
   count: string = '9'
   swatches: ColourResult[] = []
   palettes: EnhancedColourPalette[] = []
+  codez: {
+    name: string
+    code: string
+  }[] = []
 
   setColor(color: string) {
     this.color = color
@@ -62,5 +66,64 @@ export class ShadesGeneratorComponent {
     this.swatches = result
 
     // todo: generate code samples for android xml, android compose, css rgb,hsl,hex
+    this.codez = []
+
+    // Generate CSS code (hex)
+    const cssCodeHex = [':root {']
+    this.swatches.forEach((swatch) => {
+      cssCodeHex.push(`  --${swatch.name}: ${swatch.hex};`)
+    })
+    cssCodeHex.push('}')
+
+    this.codez.push({
+      name: 'CSS (hex)',
+      code: cssCodeHex.join('\n'),
+    })
+
+    // Generate CSS code (hsl)
+    const cssCodeHsl = [':root {']
+    this.swatches.forEach((swatch) => {
+      cssCodeHsl.push(`  --${swatch.name}: ${swatch.hsl};`)
+    })
+    cssCodeHsl.push('}')
+
+    this.codez.push({
+      name: 'CSS (HSL)',
+      code: cssCodeHsl.join('\n'),
+    })
+
+    // Generate CSS code for SASS (SCSS)
+    const scssCode: string[] = []
+    this.swatches.forEach((swatch) => {
+      scssCode.push('$' + swatch.name + `: ${swatch.hex};`)
+    })
+    this.codez.push({
+      name: 'Sass (SCSS)',
+      code: scssCode.join('\n'),
+    })
+
+    // Generate code for Android (XML)
+    const androidXmlCode: string[] = []
+    this.swatches.forEach((swatch) => {
+      androidXmlCode.push(`<color name="${swatch.name}">${swatch.hex}</color>`)
+    })
+    this.codez.push({
+      name: 'Android (XML)',
+      code: androidXmlCode.join('\n'),
+    })
+
+    // Generate code for Android (Jetpack Compose)
+    const androidComposeCode: string[] = [
+      'object Shades {'
+    ]
+    this.swatches.forEach((swatch) => {
+      androidComposeCode.push(`    val ${swatch.name} = Color(0xFF${swatch.hex.toUpperCase().replace('#', '')})`)
+    })
+    androidComposeCode.push('}')
+    this.codez.push({
+      name: 'Android (Jetpack Compose)',
+      code: androidComposeCode.join('\n'),
+    })
+
   }
 }
