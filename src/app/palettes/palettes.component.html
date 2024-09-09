@@ -1,29 +1,43 @@
 <div class="container">
   <h1 class="text-xl font-medium mt-2 mb-4">🎨 Colour Palettes</h1>
 
-  <div>
+  <div class="mb-4 md:mb-6">
     <p>
-      This site has some colour tools. It's a work in progress.
+      Load up colour palettes to use across this website. Colour palettes are stored locally in <code>localStorage</code>.
     </p>
   </div>
 
-  <div class="pt-6">
-    <div *ngFor="let palette of palettes" class="mb-4 md:mb-6">
+
+  <!-- Colour Palettes -->
+
+  <div class="mb-4 md:mb-6">
+    <h2 class="mb-3 text-lg font-medium text-gray-500 dark:text-gray-300">
+      Colour Palettes
+    </h2>
+
+    <div *ngFor="let palette of palettes; let idx = index" class="mb-4 md:mb-8">
       <div class="flex justify-between">
-        <h2 class="text-lg font-medium text-gray-500 dark:text-gray-300">{{palette.name}}</h2>
+        <h3 class="font-medium text-gray-500 dark:text-gray-300">{{palette.name}}</h3>
 
         <!-- actions -->
         <div>
           <!-- TODO: delete -->
           <!-- TODO: edit -->
+           <button
+            class="flex gap-1 items-center bg-td_dangerRed text-white dark:text-black text-sm px-2 py-1 rounded-sm font-semibold"
+            (click)="deletePaletteAtIndex(idx)"
+           >
+              <icon-trash></icon-trash>
+              Delete
+           </button>
         </div>
       </div>
 
-      <div class="pt-3 flex flex-wrap gap-1">
+      <div class="pt-2 flex flex-wrap gap-1">
         <div
           *ngFor="let swatch of palette.colours"
           [ngStyle]="{ 'background': swatch }"
-          class="w-[13%] h-[100px] p-3 rounded-sm"
+          class="w-full md:w-[13%] h-[100px] p-3 rounded-sm"
         >
           <span class="bg-black text-white py-1 px-2 rounded-sm">
             {{swatch.hex()}}
@@ -31,5 +45,31 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+  <!-- Add colour palette -->
+  <div class="mb-4 md:mb-6">
+    <div class="mb-2">
+      <h2 class="font-medium text-lg text-gray-500 dark:text-gray-300 pb-2">
+        🚧 Add a Colour Palette
+      </h2>
+      <p>
+        🚧 You can add a colour palette with JSON now until a GUI is built.
+      </p>
+    </div>
+
+    <!-- TODO: Add colours with a GUI -->
+    <textarea
+      [(ngModel)]="defaultPalette"
+      class="mb-1 w-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-sm focus:border-td_pink focus:outline-none h-[230px] px-2 py-1 font-mono"
+    ></textarea>
+
+    <button
+      class="rounded-sm bg-td_pink text-white dark:text-black font-semibold py-2 px-3"
+      (click)="addPalette()"
+    >
+      Add colour palette
+    </button>
   </div>
 </div>

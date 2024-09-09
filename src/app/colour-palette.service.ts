@@ -11,9 +11,31 @@ export class ColourPaletteService {
     private storageService: StorageService,
   ) { }
 
+  addPalette(palette: ColourPalette) {
+    const palettes = this.getPalettes()
+    palettes.push({
+      name: palette.name,
+      colours: palette.colours.map(c => Color(c))
+    })
+    this.setEnhancedPalettes(palettes)
+  }
+
+  setEnhancedPalettes(enhancedPalettes: EnhancedColourPalette[]) {
+    const palettes = enhancedPalettes.map(({ name, colours }) => ({
+      name,
+      colours: colours.map(c => c.hex())
+    }))
+
+    this.setPalettes(palettes)
+  }
+
+  setPalettes(palettes: ColourPalette[]) {
+    this.storageService.setItem('colour-palettes', palettes)
+  }
+
   getPalettes(): EnhancedColourPalette[] {
     let storedPalettes = this.storageService.getItem<ColourPalette[] | null>('colour-palettes')
-    if (!storedPalettes) {
+    if (!storedPalettes || !storedPalettes.length) {
       storedPalettes = [
         {
           name: 'Tinacious Design',
