@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="text-xl font-medium mt-2 mb-4">Shades Generator</h1>
+  <h1 class="text-xl font-medium mt-2 mb-4">🌈 Shades Generator</h1>
 </div>
 
 <div class="container">
@@ -9,7 +9,7 @@
     <div class="md:col-span-1">
       <!-- Colour name -->
 
-      <div class="">
+      <div class="pb-4">
         <label class="form-label" for="color-name">
           Colour name prefix
         </label>
@@ -45,23 +45,6 @@
         </div>
       </div>
 
-      <!-- Colour from palette -->
-      <div class="pb-4">
-        <label for="pick-from-palette" class="form-label">
-          Colour from palette
-        </label>
-        <div id="pick-from-palette" class="flex gap-1 flex-wrap">
-          <div
-            *ngFor="let swatch of defaultColorPalette"
-            class="md:flex items-center justify-between w-10 h-10 cursor-pointer outline-1 outline-offset-1 outline-td_pink"
-            [ngClass]="swatch === color ? 'outline-dashed' : ''"
-            title="{{ swatch }}"
-            (click)="setColor(swatch)"
-            [ngStyle]="{ 'background': swatch }"
-          >
-          </div>
-        </div>
-      </div>
 
       <!-- Number of shades input -->
 
@@ -76,6 +59,38 @@
           (change)="setCount($event)"
           class="bg-gray-100 dark:bg-gray-700 px-2 py-1"
         />
+      </div>
+
+
+       <!-- Colour from palette -->
+       <div class="pb-4">
+        <label for="pick-from-palette" class="form-label">
+          Colour from palette
+        </label>
+
+        <div>
+          <div
+            *ngFor="let palette of palettes"
+            class="mb-4"
+          >
+            <h3 class="font-semibold text-gray-500 dark:text-gray-300 text-sm mb-1">
+              {{palette.name}}
+            </h3>
+
+            <div id="pick-from-palette" class="flex gap-1 flex-wrap">
+              <div
+                *ngFor="let swatch of palette.colours"
+                class="md:flex items-center justify-between w-10 h-10 cursor-pointer outline-1 outline-offset-1 outline-td_pink"
+                [ngClass]="swatch.hex().toLowerCase() === color.toLowerCase() ? 'outline-dashed' : ''"
+                title="{{ swatch.hex() }} / {{ swatch.hsl().string() }}"
+                (click)="setColor(swatch.hex())"
+                [ngStyle]="{ 'background': swatch.hex() }"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 

@@ -3,6 +3,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ColourResult, ShadesGeneratorService } from '../shades-generator.service';
 import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ColourPaletteService, EnhancedColourPalette } from '../colour-palette.service';
 
 @Component({
   selector: 'app-shades-generator',
@@ -14,8 +15,10 @@ import { FormsModule } from '@angular/forms';
 export class ShadesGeneratorComponent {
   constructor(
     private shadesGeneratorService: ShadesGeneratorService,
+    private colourPaletteService: ColourPaletteService,
   ) {
     this.recalculateShades()
+    this.palettes = this.colourPaletteService.getPalettes()
   }
 
   colorName: string = 'grey'
@@ -23,23 +26,7 @@ export class ShadesGeneratorComponent {
   colorAsHsl: string = ''
   count: string = '9'
   swatches: ColourResult[] = []
-  defaultColorPalette: string[] = [
-    '#ff3399',
-    '#33d5ff',
-    '#b3b3d4',
-    '#00d364',
-    '#cc66ff',
-    '#ffcc66',
-    '#00ced1',
-    '#1d1d26',
-    '#c8c8d5',
-    '#ffaa00',
-    // '#ff8936',
-    '#ff365f',
-    // '#ff5b36',
-    // '#f1400f',
-    '#f10f69',
-  ]
+  palettes: EnhancedColourPalette[] = []
 
   setColor(color: string) {
     this.color = color

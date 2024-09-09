@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="text-xl font-medium mt-2 mb-4">🎨 Colour Palettes</h1>
+
+  <div>
+    <p>
+      This site has some colour tools. It's a work in progress.
+    </p>
+  </div>
+
+  <div class="pt-6">
+    <div *ngFor="let palette of palettes" class="mb-4 md:mb-6">
+      <div class="flex justify-between">
+        <h2 class="text-lg font-medium text-gray-500 dark:text-gray-300">{{palette.name}}</h2>
+
+        <!-- actions -->
+        <div>
+          <!-- TODO: delete -->
+          <!-- TODO: edit -->
+        </div>
+      </div>
+
+      <div class="pt-3 flex flex-wrap gap-1">
+        <div
+          *ngFor="let swatch of palette.colours"
+          [ngStyle]="{ 'background': swatch }"
+          class="w-[13%] h-[100px] p-3 rounded-sm"
+        >
+          <span class="bg-black text-white py-1 px-2 rounded-sm">
+            {{swatch.hex()}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
