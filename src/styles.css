@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  @apply max-w-screen-lg mx-auto px-4 box-border;
+  @apply max-w-screen-xl mx-auto px-4 box-border;
 }
 
 

@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-  <div class="grid md:grid-cols-3 max-w-screen-lg mx-auto">
+  <div class="grid md:grid-cols-3 max-w-screen-xl mx-auto">
 
     <!-- Form column -->
     <div class="md:col-span-1">
@@ -122,20 +122,25 @@
       <div>
         <h2 class="font-semibold text-gray-500 dark:text-gray-300 mb-1">Code Snippets</h2>
 
-        <div
-          *ngFor="let code of codez"
-          class="mb-4 md:mb-6"
-        >
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="font-semibold text-gray-500 dark:text-gray-300 text-sm">
-              {{code.name}}
-            </h3>
+        <div class="grid grid-cols-2 gap-2">
+          <div
+            *ngFor="let code of codez"
+            class="mb-4 md:mb-6 relative flex flex-col"
+          >
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="font-semibold text-gray-500 dark:text-gray-300 text-sm">
+                {{code.name}}
+              </h3>
+            </div>
 
-            <button title="Copy code to clipboard">
-              Copy
+            <pre class="h-[100%] p-2 bg-gray-100 dark:bg-gray-700 rounded-md overflow-x-scroll">{{code.code}}</pre>
+            <button
+                class="absolute bottom-2 right-2 flex gap-1 items-center text-sm" title="Copy '{{code.name}}' code to clipboard"
+                (click)="copyToClipboard(code.code)"
+              >
+              <icon-copy></icon-copy> Copy
             </button>
           </div>
-          <pre class="p-2 bg-gray-100 dark:bg-gray-700 rounded-md">{{code.code}}</pre>
         </div>
       </div>
     </div>
