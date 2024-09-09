@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import Color from 'color';
 
 import { ShadesGeneratorService } from './shades-generator.service';
 
@@ -24,9 +25,19 @@ describe('ShadesGeneratorService', () => {
       const first = result[0]
       const last = result[result.length-1]
 
-      expect(result.length).toEqual(14)
+      expect(result.length).toEqual(15)
       expect(first.hex).toEqual('#000000')
       expect(last.hex).toEqual('#FFFFFF')
+    })
+
+    it('should return a list of shades for a bright colour', () => {
+      const input = '#ff3399' // tinacious pink
+      const prefix = 'grey'
+
+      const result = service.shadesFromColour(input, prefix, 12)
+      console.log(JSON.stringify(result, null, 2))
+
+      expect(result.length).toEqual(15)
     })
 
     it('should return a list of shades for a dark colour', () => {
@@ -36,7 +47,7 @@ describe('ShadesGeneratorService', () => {
       const result = service.shadesFromColour(input, prefix, 12)
       console.log(JSON.stringify(result, null, 2))
 
-      expect(result.length).toEqual(14)
+      expect(result.length).toEqual(15)
     })
 
     it('should return a list of shades for a light colour', () => {
@@ -45,7 +56,7 @@ describe('ShadesGeneratorService', () => {
 
       const result = service.shadesFromColour(input, prefix, 12)
 
-      expect(result.length).toEqual(14)
+      expect(result.length).toEqual(15)
     })
 
     it('should return a list of shades for a medium colour', () => {
@@ -54,7 +65,32 @@ describe('ShadesGeneratorService', () => {
 
       const result = service.shadesFromColour(input, prefix, 12)
 
-      expect(result.length).toEqual(14)
+      expect(result.length).toEqual(15)
+    })
+  })
+
+  describe('_requiresTargetSwatch', () => {
+    it('should return true', () => {
+      const swatches = [
+        Color('hsl(50,50%,90%)'),
+        Color('hsl(50,50%,100%)'),
+      ]
+
+      const result = service._requiresTargetSwatch(swatches, 95, [90,100])
+
+      expect(result).toBe(true)
+    })
+
+    it('should return false', () => {
+      const swatches = [
+        Color('hsl(50,50%,90%)'),
+        Color('hsl(50,50%,95%)'),
+        Color('hsl(50,50%,100%)'),
+      ]
+
+      const result = service._requiresTargetSwatch(swatches, 95, [90,100])
+
+      expect(result).toBe(false)
     })
   })
 });

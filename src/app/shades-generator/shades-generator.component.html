@@ -27,7 +27,7 @@
         <label class="form-label" for="colour-picker">
           Colour
         </label>
-        <div class="flex">
+        <div class="flex items-center">
           <input
             id="colour-picker"
             class="w-6 mr-1 rounded-sm cursor-pointer"
@@ -39,13 +39,33 @@
           <label for="colour-picker" class="cursor-pointer font-bold">
             {{color}}
           </label>
+          <!-- <span class="text-xs ml-1">
+            {{colorAsHsl}}
+          </span> -->
         </div>
       </div>
 
+      <!-- Colour from palette -->
+      <div class="pb-4">
+        <label for="pick-from-palette" class="form-label">
+          Colour from palette
+        </label>
+        <div id="pick-from-palette" class="flex gap-1 flex-wrap">
+          <div
+            *ngFor="let swatch of defaultColorPalette"
+            class="md:flex items-center justify-between w-10 h-10 cursor-pointer outline-1 outline-offset-1 outline-td_pink"
+            [ngClass]="swatch === color ? 'outline-dashed' : ''"
+            title="{{ swatch }}"
+            (click)="setColor(swatch)"
+            [ngStyle]="{ 'background': swatch }"
+          >
+          </div>
+        </div>
+      </div>
 
       <!-- Number of shades input -->
 
-      <div class="">
+      <div class="pb-4">
         <label class="form-label" for="shades-count">
           Number of shades
         </label>
@@ -65,11 +85,21 @@
     <div class="md:col-span-2">
 
       <!-- Swatches -->
-      <div class="">
-        <div *ngFor="let swatch of swatches" class="flex items-center py-2 px-3" [ngStyle]="{ 'background': swatch.hex }">
+      <div class="md:mt-0 mt-5">
+        <div *ngFor="let swatch of swatches" class="md:flex items-center justify-between py-2 px-3" [ngStyle]="{ 'background': swatch.hex }">
           <span class="bg-black text-white py-1 px-2 rounded-sm">
             {{swatch.name}}
           </span>
+
+          <div class="flex">
+            <span class="bg-black/40 text-white p-1 text-xs">
+              {{swatch.hex}}
+            </span>
+
+            <span class="bg-black/40 text-white p-1 text-xs">
+              {{swatch.hsl}}
+            </span>
+          </div>
         </div>
       </div>
 
