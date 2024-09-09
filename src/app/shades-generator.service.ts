@@ -11,16 +11,19 @@ export class ShadesGeneratorService {
   shadesFromColour(colour: string, prefix: string, count: number): ColourResult[] {
     const darkest = 0
     const lightest = 100
-    const diff = (lightest - darkest) / count
+    const diff = (lightest - darkest) / (count+1)
 
     let currentLightness = darkest
 
     const base = Color(colour).hsl()
-    const lightness = base.lightness()
-
     const swatches: Color[] = []
 
-    for (let i = darkest; i < Math.ceil(count); i++) {
+    swatches.push(Color({
+      ...base.object(),
+      l: 0,
+    }))
+
+    for (let i = darkest; i <= Math.ceil(count); i++) {
       currentLightness += diff
 
       const swatch = Color(
@@ -33,9 +36,15 @@ export class ShadesGeneratorService {
       swatches.push(swatch)
     }
 
+
     return swatches.map((swatch, idx) => {
+      console.log('lightness', swatch.hsl().lightness())
+      const name = swatch.hsl().lightness() === 0 ? 'black' :
+        Math.ceil(swatch.hsl().lightness()) >= 100 ? 'white' :
+        `${prefix}_${Math.floor((idx) * 100)}`;
+
       return {
-        name: `${prefix}_${Math.floor((idx+1) * 100)}`,
+        name,
         androidCompose: this.androidColourCompose(swatch.string()),
         hex: swatch.hex(),
         hsl: swatch.hsl().string(),
