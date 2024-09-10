@@ -8,7 +8,7 @@
   </div>
 
   <div class="mb-4 md:mb-6">
-    <h2 class="font-medium text-lg text-gray-500 dark:text-gray-300 pb-2">Copy Mode</h2>
+    <h2 class="font-medium text-lg text-td_grey_500 dark:text-td_grey_900 pb-2">Copy Mode</h2>
 
     <div class="flex gap-6">
       <label class="block md:inline-block mb-1 cursor-pointer">
@@ -33,7 +33,7 @@
   <!-- Colour Palettes -->
 
   <div class="mb-4 md:mb-6">
-    <h2 class="mb-3 text-lg font-medium text-gray-500 dark:text-gray-300">
+    <h2 class="mb-3 text-lg font-medium text-td_grey_500 dark:text-td_grey_900">
       Colour Palettes
     </h2>
 
@@ -45,7 +45,7 @@
 
     <div *ngFor="let palette of palettes; let idx = index" class="mb-4 md:mb-8">
       <div class="flex justify-between">
-        <h3 class="font-medium text-gray-500 dark:text-gray-300">{{palette.name}}</h3>
+        <h3 class="font-medium text-td_grey_500 dark:text-td_grey_900">{{palette.name}}</h3>
 
         <!-- actions -->
         <div>
@@ -83,7 +83,7 @@
   <!-- Add colour palette -->
   <div class="mb-4 md:mb-6">
     <div class="mb-2">
-      <h2 class="font-medium text-lg text-gray-500 dark:text-gray-300 pb-2">
+      <h2 class="font-medium text-lg text-td_grey_500 dark:text-td_grey_900 pb-2">
         🚧 Add a Colour Palette
       </h2>
       <p>
@@ -94,7 +94,7 @@
     <!-- TODO: Add colours with a GUI -->
     <textarea
       [(ngModel)]="defaultPalette"
-      class="mb-1 w-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-sm focus:border-td_pink focus:outline-none h-[230px] px-2 py-1 font-mono"
+      class="mb-1 w-full border-2 border-td_grtext-td_grey_900 dark:border-td_grey_400 bg-white dark:bg-td_grey_100 rounded-sm focus:border-td_pink focus:outline-none h-[230px] px-2 py-1 font-mono"
     ></textarea>
 
     <button

@@ -101,6 +101,19 @@ export class ShadesGeneratorComponent {
     })
 
     // Generate CSS code (hex)
+    const tailwindCode: string[] = []
+    // const tailwindCode = ['colors: {']
+    this.swatches.forEach((swatch) => {
+      tailwindCode.push(`  ${swatch.name}: '${swatch.hex}',`)
+    })
+    // tailwindCode.push('}')
+
+    this.codez.push({
+      name: 'Tailwind colors',
+      code: tailwindCode.join('\n'),
+    })
+
+    // Generate CSS code (hex)
     const cssCodeHex = [':root {']
     this.swatches.forEach((swatch) => {
       cssCodeHex.push(`  --${swatch.name}: ${swatch.hex};`)

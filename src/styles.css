@@ -23,5 +23,5 @@ body {
 
 
 .form-label {
-  @apply font-semibold text-gray-500 dark:text-gray-300 py-1;
+  @apply font-semibold text-td_grey_500 dark:text-td_grey_800 py-1;
 }

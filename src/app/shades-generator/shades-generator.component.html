@@ -18,7 +18,7 @@
           type="text"
           [value]="colorName"
           (change)="setColorName($event)"
-          class="bg-gray-100 dark:bg-gray-800 border-2 dark:border-gray-600 outline-none focus:border-td_pink px-2 py-1"
+          class="bg-td_grey_950 dark:bg-td_grey_200 border-2 border-td_grey_900 dark:border-td_grey_400 outline-none focus:border-td_pink px-2 py-1"
         />
       </div>
 
@@ -57,7 +57,7 @@
           type="number"
           [value]="count"
           (change)="setCount($event)"
-          class="bg-gray-100 dark:bg-gray-800 border-2 dark:border-gray-600 outline-none focus:border-td_pink px-2 py-1"
+          class="bg-td_grey_950 dark:bg-td_grey_200 border-2 border-td_grey_900 dark:border-td_grey_400 outline-none focus:border-td_pink px-2 py-1"
         />
       </div>
 
@@ -73,7 +73,7 @@
             *ngFor="let palette of palettes"
             class="mb-4"
           >
-            <h3 class="font-semibold text-gray-500 dark:text-gray-300 text-sm mb-1">
+            <h3 class="font-semibold text-td_grey_500 dark:text-td_grey_800 text-sm mb-1">
               {{palette.name}}
             </h3>
 
@@ -118,26 +118,26 @@
         </div>
       </div>
 
-      <!-- TODO: Add code snippets -->
+      <!-- Code snippets -->
       <div>
-        <h2 class="font-semibold text-gray-500 dark:text-gray-300 mb-1">Code Snippets</h2>
+        <h2 class="font-semibold text-td_grey_500 dark:text-td_grey_800 mb-1">Code Snippets</h2>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid md:grid-cols-2 gap-2 box-border">
           <div
             *ngFor="let code of codez"
-            class="mb-4 md:mb-6 relative flex flex-col"
+            class="mb-4 md:mb-6 relative flex flex-col min-w-0"
           >
             <div class="flex justify-between items-center mb-1">
-              <h3 class="font-semibold text-gray-500 dark:text-gray-300 text-sm">
+              <h3 class="font-semibold text-td_grey_500 dark:text-td_grey_800 text-sm">
                 {{code.name}}
               </h3>
             </div>
 
-            <div class="overflow-hidden rounded-md h-[100%]">
-              <pre class="h-[100%] p-2 bg-gray-100 dark:bg-gray-700 rounded-md overflow-x-scroll">{{code.code}}</pre>
+            <div class="max-w-full overflow-hidden rounded-md h-[100%] box-border">
+              <pre class="min-w-full max-w-full box-border h-[100%] p-2 bg-td_grey_950 dark:bg-td_grey_300 rounded-md overflow-x-scroll">{{code.code}}</pre>
             </div>
             <button
-              class="hover:text-td_pink absolute bottom-4 right-2 flex gap-1 items-center text-sm" title="Copy '{{code.name}}' code to clipboard"
+              class="hover:text-td_pink dark:bg-td_grey_50/80 bg-white/80 md:bg-transparent md:dark:bg-transparent p-2 rounded-sm md:rounded-none md:p-0 absolute bottom-4 right-2 flex gap-1 items-center text-sm" title="Copy '{{code.name}}' code to clipboard"
               (click)="copyToClipboard(code.code)"
             >
               <icon-copy></icon-copy> Copy
