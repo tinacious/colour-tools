@@ -15,7 +15,7 @@ export class ClipboardService {
     navigator.clipboard.writeText(text).then(function () {
       callback(true)
     }, function (err) {
-      console.error('Async: Could not copy text: ', err);
+      console.error('async: failed to copy', err);
       callback(false)
     });
   }
@@ -34,11 +34,10 @@ export class ClipboardService {
     textArea.select();
 
     try {
-      var successful = document.execCommand('copy');
-      var msg = successful ? 'successful' : 'unsuccessful';
+      document.execCommand('copy');
       callback(true)
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err);
+      console.error('fallback: failed to copy', err);
       callback(false)
     }
 

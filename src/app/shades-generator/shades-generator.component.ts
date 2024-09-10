@@ -30,10 +30,7 @@ export class ShadesGeneratorComponent {
   count: string = '9'
   swatches: ColourResult[] = []
   palettes: EnhancedColourPalette[] = []
-  codez: {
-    name: string
-    code: string
-  }[] = []
+  codez: CodeDefinition[] = []
 
   setColor(color: string) {
     this.color = color
@@ -58,7 +55,9 @@ export class ShadesGeneratorComponent {
     }
   }
 
-  copyToClipboard(text: string) {
+  copyToClipboard(codeDef: CodeDefinition) {
+    const text = codeDef.comment + '\n' + codeDef.code
+
     this.clipboardService.copyText(text, (success) => {
       console.log('Success?', success)
     })
@@ -74,7 +73,7 @@ export class ShadesGeneratorComponent {
     this.colorAsHsl = this.shadesGeneratorService.colourToHsl(this.color)
     this.swatches = result
 
-    // todo: generate code samples for android xml, android compose, css rgb,hsl,hex
+    const copiedComment = `Shades generated for ${this.color} with: https://colour-tools.pages.dev/shades`
     this.codez = []
 
     // Generate code for Android (XML)
@@ -84,6 +83,7 @@ export class ShadesGeneratorComponent {
     })
     this.codez.push({
       name: 'Android (XML)',
+      comment: `<!-- ${copiedComment} -->`,
       code: androidXmlCode.join('\n'),
     })
 
@@ -97,10 +97,11 @@ export class ShadesGeneratorComponent {
     androidComposeCode.push('}')
     this.codez.push({
       name: 'Android (Jetpack Compose)',
+      comment: `// ${copiedComment}`,
       code: androidComposeCode.join('\n'),
     })
 
-    // Generate CSS code (hex)
+    // Generate Tailwind config
     const tailwindCode: string[] = []
     // const tailwindCode = ['colors: {']
     this.swatches.forEach((swatch) => {
@@ -110,6 +111,7 @@ export class ShadesGeneratorComponent {
 
     this.codez.push({
       name: 'Tailwind colors',
+      comment: `// ${copiedComment}`,
       code: tailwindCode.join('\n'),
     })
 
@@ -122,6 +124,7 @@ export class ShadesGeneratorComponent {
 
     this.codez.push({
       name: 'CSS (hex)',
+      comment: `/* ${copiedComment} */`,
       code: cssCodeHex.join('\n'),
     })
 
@@ -134,7 +137,21 @@ export class ShadesGeneratorComponent {
 
     this.codez.push({
       name: 'CSS (HSL)',
+      comment: `/* ${copiedComment} */`,
       code: cssCodeHsl.join('\n'),
+    })
+
+    // Generate CSS code (rgb)
+    const cssCodeRgb = [':root {']
+    this.swatches.forEach((swatch) => {
+      cssCodeRgb.push(`  --${swatch.name}: ${swatch.rgb};`)
+    })
+    cssCodeRgb.push('}')
+
+    this.codez.push({
+      name: 'CSS (RGB)',
+      comment: `/* ${copiedComment} */`,
+      code: cssCodeRgb.join('\n'),
     })
 
     // Generate CSS code for SASS (SCSS)
@@ -144,6 +161,7 @@ export class ShadesGeneratorComponent {
     })
     this.codez.push({
       name: 'Sass (SCSS)',
+      comment: `// ${copiedComment}`,
       code: scssCode.join('\n'),
     })
 
@@ -154,7 +172,14 @@ export class ShadesGeneratorComponent {
     })
     this.codez.push({
       name: 'Sass (Stylus)',
+      comment: `// ${copiedComment}`,
       code: stylusCssCode.join('\n'),
     })
   }
+}
+
+type CodeDefinition = {
+  name: string
+  comment: string
+  code: string
 }
