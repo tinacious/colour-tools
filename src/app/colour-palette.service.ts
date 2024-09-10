@@ -51,7 +51,7 @@ export class ColourPaletteService {
             '#c8c8d5',
             '#ffaa00',
             // '#ff8936',
-            '#ff365f',
+            // '#ff365f',
             // '#ff5b36',
             // '#f1400f',
             '#f10f69',
