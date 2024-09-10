@@ -9,7 +9,7 @@ export class ShadesGeneratorService {
   constructor() { }
 
   colourToHsl(colour: string): string {
-    return Color(colour).hsl().string()
+    return Color(colour).hsl().round().string()
   }
 
   shadesFromColour(colour: string, prefix: string, count: number): ColourResult[] {
@@ -50,7 +50,7 @@ export class ShadesGeneratorService {
         swatch,
         androidCompose: this.androidColourCompose(swatch.string()),
         hex: swatch.hex(),
-        hsl: swatch.hsl().string(),
+        hsl: swatch.hsl().round().string(),
         rgb: swatch.rgb().string(),
       }
     })
@@ -72,7 +72,7 @@ export class ShadesGeneratorService {
           swatch: newSwatch,
           androidCompose: this.androidColourCompose(newSwatch.string()),
           hex: newSwatch.hex(),
-          hsl: newSwatch.hsl().string(),
+          hsl: newSwatch.hsl().round().string(),
           rgb: newSwatch.rgb().string(),
         })
       }
@@ -93,7 +93,7 @@ export class ShadesGeneratorService {
           swatch: newSwatch,
           androidCompose: this.androidColourCompose(newSwatch.string()),
           hex: newSwatch.hex(),
-          hsl: newSwatch.hsl().string(),
+          hsl: newSwatch.hsl().round().string(),
           rgb: newSwatch.rgb().string(),
         })
       }

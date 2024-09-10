@@ -82,7 +82,7 @@
                 *ngFor="let swatch of palette.colours"
                 class="md:flex items-center justify-between w-10 h-10 cursor-pointer outline-1 outline-offset-1 outline-td_pink"
                 [ngClass]="swatch.hex().toLowerCase() === color.toLowerCase() ? 'outline-dashed' : ''"
-                title="{{ swatch.hex() }} / {{ swatch.hsl().string() }}"
+                title="{{ swatch.hex() }} / {{ swatch.hsl().round().string() }}"
                 (click)="setColor(swatch.hex())"
                 [ngStyle]="{ 'background': swatch.hex() }"
               >
