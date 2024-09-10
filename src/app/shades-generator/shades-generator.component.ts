@@ -110,7 +110,7 @@ export class ShadesGeneratorComponent {
     // tailwindCode.push('}')
 
     this.codez.push({
-      name: 'Tailwind colors',
+      name: 'Tailwind "colors" configuration',
       comment: `// ${copiedComment}`,
       code: tailwindCode.join('\n'),
     })
