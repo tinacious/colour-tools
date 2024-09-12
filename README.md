@@ -1,4 +1,4 @@
-# 🚧 Colour Tools
+# 🌈 Colour Tools 🎨
 
 Various tools for working with colours.
 
@@ -15,3 +15,7 @@ Start the development server:
 
     npm start
 
+
+## Contributing
+
+If you'd like to contribute in any way, e.g. add a feature or fix a bug, please view the [contributing guidelines](./CONTRIBUTING.md) first.
