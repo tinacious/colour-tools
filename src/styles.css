@@ -25,3 +25,7 @@ body {
 .form-label {
   @apply font-semibold text-td_grey_500 dark:text-td_grey_800 py-1;
 }
+
+.text-link {
+  @apply text-td_grey_600 dark:text-td_grey_700 underline hover:text-td_pink dark:hover:text-td_candyPurple;
+}
