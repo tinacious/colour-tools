@@ -15,67 +15,83 @@ export class ColourPaletteService {
     const palettes = this.getPalettes()
     palettes.push({
       name: palette.name,
-      colours: palette.colours.map(c => Color(c))
+      colours: palette.colours.map(c => ({
+        name: c.name,
+        colour: c.colour,
+        colourObject: Color(c.colour),
+      }))
     })
     this.setEnhancedPalettes(palettes)
   }
 
   setEnhancedPalettes(enhancedPalettes: EnhancedColourPalette[]) {
-    const palettes = enhancedPalettes.map(({ name, colours }) => ({
+    const palettes: ColourPalette[] = enhancedPalettes.map(({ name, colours }) => ({
       name,
-      colours: colours.map(c => c.hex())
+      colours: colours.map(c => ({
+        name: c.name,
+        colour: c.colour,
+      }))
     }))
 
     this.setPalettes(palettes)
   }
 
   setPalettes(palettes: ColourPalette[]) {
-    this.storageService.setItem('colour-palettes', palettes)
+    this.storageService.setItem('colour-palettes.v2', palettes)
   }
 
   getPalettes(): EnhancedColourPalette[] {
-    let storedPalettes = this.storageService.getItem<ColourPalette[] | null>('colour-palettes')
+    let storedPalettes = this.storageService.getItem<ColourPalette[] | null>('colour-palettes.v2')
     if (!storedPalettes || !storedPalettes.length) {
       storedPalettes = [
         {
           name: 'Tinacious Design',
           colours: [
-            '#ff3399',
-            '#33d5ff',
-            '#b3b3d4',
-            '#00d364',
-            '#cc66ff',
-            '#ffcc66',
-            '#00ced1',
-            '#1d1d26',
-            '#c8c8d5',
-            '#ffaa00',
-            // '#ff8936',
-            // '#ff365f',
-            // '#ff5b36',
-            // '#f1400f',
-            '#f10f69',
+            { name: 'pink', colour: '#ff3399' },
+            { name: 'blue', colour: '#33d5ff' },
+            { name: 'grey', colour: '#b3b3d4' },
+            { name: 'green', colour: '#00d364' },
+            { name: 'purple', colour: '#cc66ff' },
+            { name: 'yellow', colour: '#ffcc66' },
+            { name: 'blue', colour: '#00ced1' },
+            { name: 'midnight-sky', colour: '#1d1d26' },
+            { name: 'overcast-sky', colour: '#c8c8d5' },
+            { name: 'tangerine', colour: '#ffaa00' },
+            { name: 'red', colour: '#f10f69' },
           ]
         }
       ]
-      this.storageService.setItem('colour-palettes', storedPalettes)
+      this.storageService.setItem('colour-palettes.v2', storedPalettes)
     }
 
     return (storedPalettes || []).map(({ name, colours }) => {
       return {
         name,
-        colours: colours.map(c => Color(c))
+        colours: colours.map(c => ({
+          name: c.name,
+          colour: c.colour,
+          colourObject: Color(c.colour)
+        }))
       }
     })
   }
 }
 
+export type ColourDefinition = {
+  name: string
+  colour: string
+}
+
+export type EnhancedColourDefinition = ColourDefinition & {
+  colourObject: Color
+}
+
 export type ColourPalette = {
   name: string
-  colours: string[]
+  colours: ColourDefinition[]
 }
 
 export type EnhancedColourPalette = {
   name: string
-  colours: Color[]
+  colours: EnhancedColourDefinition[]
 }

@@ -64,15 +64,19 @@
       <div class="pt-2 grid md:grid-cols-4 gap-1">
         <div
           *ngFor="let swatch of palette.colours"
-          [ngStyle]="{ 'background': swatch }"
-          class="w-full  h-[100px] p-3 rounded-sm cursor-pointer"
-          (click)="copyColour(swatch)"
+          [ngStyle]="{ 'background': swatch.colour }"
+          class="w-full  h-[100px] p-3 rounded-sm cursor-pointer relative"
+          (click)="copyColour(swatch.colourObject)"
         >
-          <span class="bg-black text-white py-1 px-2 rounded-sm text-sm">
-            <span *ngIf="copyMode == 'hex'">{{swatch.hex()}}</span>
-            <span *ngIf="copyMode == 'hsl'">{{swatch.hsl().round().string()}}</span>
-            <span *ngIf="copyMode == 'rgb'">{{swatch.rgb().string()}}</span>
-            <span *ngIf="copyMode == 'android_compose'">Color(0xFF{{swatch.hex().replace('#', '')}})</span>
+          <span class="bg-black text-white py-1 px-2 rounded-sm text-sm font-bold absolute top-2 left-2">
+            {{swatch.name}}
+          </span>
+
+          <span class="bg-black text-white py-1 px-2 rounded-sm text-sm absolute bottom-2 left-2">
+            <span *ngIf="copyMode == 'hex'">{{swatch.colourObject.hex()}}</span>
+            <span *ngIf="copyMode == 'hsl'">{{swatch.colourObject.hsl().round().string()}}</span>
+            <span *ngIf="copyMode == 'rgb'">{{swatch.colourObject.rgb().string()}}</span>
+            <span *ngIf="copyMode == 'android_compose'">Color(0xFF{{swatch.colourObject.hex().replace('#', '')}})</span>
           </span>
         </div>
       </div>

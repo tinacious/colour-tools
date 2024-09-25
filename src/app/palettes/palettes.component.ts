@@ -29,10 +29,10 @@ export class PalettesComponent {
   defaultPalette: string = `{
   "name": "My New Colour Palette",
   "colours": [
-    "#000",
-    "#FFF",
-    "#FF3399",
-    "#33D5FF"
+    { "name": "black", "colour": "#000"},
+    { "name": "white", "colour": "#FFF"},
+    { "name": "pink", "colour": "#FF3399"},
+    { "name": "blue", "colour": "#33D5FF"},
   ]
 }
   `
@@ -49,6 +49,7 @@ export class PalettesComponent {
       this.colourPaletteService.addPalette(paletteToAdd)
       this.loadPalettes()
     } catch (e) {
+      console.error(e)
       alert('Error parsing palette definition')
     }
   }
